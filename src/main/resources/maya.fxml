@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckComboBox?>
+
+<BorderPane fx:id="root" stylesheets="style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <left>
+      <TabPane prefHeight="750.0" prefWidth="300.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" tabMinWidth="75" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="POMIAR">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10">
+                     <children>
+                         <Region minHeight="1" />
+                         <StackPane prefHeight="150.0" prefWidth="200.0">
+
+                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="200.0" stroke="gray" strokeType="INSIDE" width="280.0" StackPane.alignment="CENTER" />
+                           <VBox alignment="CENTER" maxHeight="190.0" maxWidth="250.0">
+                              <children>
+                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                    <children>
+                                       <Label text="Typ pomiaru" />
+                                       <CheckComboBox fx:id="typPomiaru" maxWidth="100" minWidth="100" />
+                                    </children>
+                                 </HBox>
+                                 <Button fx:id="pomiarDiod" mnemonicParsing="false" text="WYKONAJ POMIAR DIOD">
+                                    <VBox.margin>
+                                       <Insets bottom="20.0" />
+                                    </VBox.margin></Button>
+                                 <Button fx:id="pelenPomiar" mnemonicParsing="false" text="WYKONAJ POMIAR PRÓBKI">
+                                    <VBox.margin>
+                                       <Insets bottom="10.0" />
+                                    </VBox.margin></Button>
+                                 <ProgressBar fx:id="pomiarDiodProgress" prefWidth="200.0" progress="0.0" />
+                                 <Label fx:id="wykonanoPomiarow" text="Wykonano 0 z 64 pomiarów" />
+                              </children>
+                           </VBox>
+                             <Label style="-fx-background-color: white;" text="Pomiar" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                     <Insets left="20.0" top="-8" />
+                                 </StackPane.margin></Label>
+                         </StackPane>
+                         <StackPane prefHeight="150.0" prefWidth="200.0">
+
+                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="200.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                             <Label style="-fx-background-color: white;" text="Analiza" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                     <Insets left="20.0" top="-8" />
+                                 </StackPane.margin></Label>
+                           <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                              <children>
+                                 <HBox alignment="CENTER" maxHeight="100.0" minHeight="38.0" prefHeight="38.0" prefWidth="280.0">
+                                    <children>
+                                       <CheckBox fx:id="automatycznaAnaliza" mnemonicParsing="false" text="Automatyczna analiza" />
+                                    </children>
+                                 </HBox>
+                                 <CheckBox mnemonicParsing="false" text="Automatyczna analiza wsteczna" />
+                                 <HBox alignment="CENTER">
+                                    <children>
+                                       <Label text="Trwa analiza...." />
+                                       <ProgressIndicator progress="0.0" />
+                                    </children>
+                                 </HBox>
+                                 <Label text="Przebadano x z y próbek" />
+                              </children>
+                           </VBox>
+                         </StackPane>
+                        <StackPane fx:id="odnalezioneProbkiStack" prefHeight="150.0" prefWidth="200.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="200.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox alignment="CENTER" prefHeight="250.0" prefWidth="280.0">
+                                 <children>
+                                    <ListView fx:id="odnalezioneProbki" prefHeight="172.0" prefWidth="254.0" />
+                                    <Button fx:id="wczytaj" mnemonicParsing="false" text="Wczytaj na wykres nr 2" />
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Odnalezione próbki" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" top="-8" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+          </Tab>
+          <Tab text="WYKRES">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Region prefHeight="15.0" prefWidth="300.0" />
+                        <StackPane prefHeight="170.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="153.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox prefHeight="136.0" prefWidth="300.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label prefHeight="47.0" prefWidth="115.0" text="Pokaż/Ukryj przebieg" wrapText="true" />
+                                          <CheckComboBox prefHeight="25.0" prefWidth="129.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="87.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="34.0" prefWidth="115.0" text="Typ wykresu próbki 1" wrapText="true" />
+                                          <ComboBox prefHeight="25.0" prefWidth="130.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="103.0" prefWidth="300.0">
+                                       <children>
+                                          <Label prefHeight="34.0" prefWidth="115.0" text="Typ wykresu próbki 2" wrapText="true" />
+                                          <ComboBox prefHeight="25.0" prefWidth="130.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Aktualizuj wykres" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="113.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="95.0" stroke="gray" strokeType="INSIDE" width="280.0">
+                                 <StackPane.margin>
+                                    <Insets />
+                                 </StackPane.margin>
+                              </Rectangle>
+                              <VBox alignment="CENTER" prefHeight="102.0" prefWidth="300.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="51.0" prefWidth="300.0">
+                                       <children>
+                                          <ComboBox prefHeight="25.0" prefWidth="134.0">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin></ComboBox>
+                                          <ComboBox prefHeight="25.0" prefWidth="40.0" />
+                                          <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="WCZYTAJ" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="35.0" prefWidth="300.0">
+                                       <children>
+                                          <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="98.0" text="ANALIZA" />
+                                          <Button mnemonicParsing="false" text="ANALIZA WSTECZNA" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Analiza" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="184.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="170.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" text="1">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </CheckBox>
+                                          <ComboBox prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" text="2">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </CheckBox>
+                                          <ComboBox prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" text="3">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </CheckBox>
+                                          <ComboBox prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" text="4">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </CheckBox>
+                                          <ComboBox prefWidth="150.0" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Marker" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="153.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="129.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox alignment="CENTER" prefHeight="133.0" prefWidth="300.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="X min">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField prefHeight="25.0" prefWidth="66.0" fx:id="xmin">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Label text="Y min">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="ymin" prefHeight="25.0" prefWidth="66.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="X max">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField prefHeight="25.0" prefWidth="66.0" fx:id="xmax">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                          <Label text="Y max">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField fx:id="ymax" prefHeight="25.0" prefWidth="66.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
+                                       <children>
+                                          <Button fx:id="ustaw" mnemonicParsing="false" text="USTAW">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="wyczysc" mnemonicParsing="false" text="WYCZYŚĆ" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Zakres" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="160.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="141.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox alignment="CENTER" prefHeight="55.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Nazwa pomiaru">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Komentarz">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextArea prefHeight="58.0" prefWidth="200.0" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <CheckBox mnemonicParsing="false" text="Wzorcowy" />
+                                 </children>
+                              </VBox>
+                              <Label style="-fx-background-color: white;" text="Metryka pomiaru" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" />
+                                 </StackPane.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Label>
+                           </children>
+                        </StackPane>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="EKSPORTUJ">
+                                 <HBox.margin>
+                                    <Insets right="20.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" text="ZAPISZ POMIAR" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </content>
+          </Tab>
+            <Tab text="BAZA POMIARÓW">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;">
+                     <children>
+                         <Region minHeight="10.0" />
+                         <StackPane prefHeight="271.0" prefWidth="300.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="white" height="270.0" stroke="gray" strokeType="INSIDE" width="280.0" />
+                              <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <ComboBox prefWidth="150.0">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin></ComboBox>
+                                    <CheckBox mnemonicParsing="false" text="Tylko wzorcowe" />
+                                    <HBox alignment="TOP_CENTER" maxHeight="100.0" minHeight="34.0" prefHeight="34.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Typ pomiaru">
+                                             <HBox.margin>
+                                                <Insets right="10.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <CheckComboBox fx:id="typPomiaru1" maxWidth="100" minWidth="100" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="33.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Nazwa pomiaru">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField prefHeight="0.0" prefWidth="149.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="38.0" prefWidth="300.0">
+                                       <children>
+                                          <Label text="Komentarz">
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextArea prefHeight="60.0" prefWidth="200.0" />
+                                       </children>
+                                    </HBox>
+                                    <CheckBox mnemonicParsing="false" text="Czy próbka wzorcowa" />
+                                    <HBox alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="300.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="EDYTUJ">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" text="ZAPISZ">
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button mnemonicParsing="false" text="USUŃ" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <StackPane.margin>
+                                    <Insets top="15.0" />
+                                 </StackPane.margin>
+                              </VBox>
+                              <Label alignment="TOP_LEFT" style="-fx-background-color: white;" text="Wybór pomiaru" textAlignment="CENTER" textFill="#336633" StackPane.alignment="TOP_LEFT">
+                                 <StackPane.margin>
+                                    <Insets left="20.0" top="-8.0" />
+                                 </StackPane.margin>
+                              </Label>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </left>
+   <center>
+      <LineChart BorderPane.alignment="CENTER">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+   </center>
+   <padding>
+      <Insets bottom="30.0" top="30.0" />
+   </padding>
+   <top>
+      <HBox prefWidth="60.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="komunikaty" text="">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font></Label>
+         </children>
+         <BorderPane.margin>
+            <Insets left="300.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+</BorderPane>
